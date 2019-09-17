@@ -84,6 +84,7 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
      * Handles error returned by the request. Evaluates upcoming days' names.
      */
     fun getWeather(location : String) {
+        if (location == DEFAULT_LOCATION_VALUE) return
         coroutineScope.launch {
             /* API Key is exposed, which is a bad practice, I am aware, and makes me uneasy. */
             val getCurrentWeatherPropertyDeferred = getWeatherApiService(getApplication())
