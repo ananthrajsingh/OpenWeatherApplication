@@ -1,4 +1,4 @@
-package com.ananth.weatherdemo.ui.main
+package com.ananth.weatherdemo.ui.forecast
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders

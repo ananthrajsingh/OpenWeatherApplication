@@ -8,7 +8,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ananth.weatherdemo.ui.main.ForecastViewModel" />
+            type="com.ananth.weatherdemo.ui.forecast.ForecastViewModel" />
     </data>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:id="@+id/swipeRefreshLayout"
@@ -21,7 +21,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.ForecastFragment">
+    tools:context=".ui.forecast.ForecastFragment">
 
     <TextView
         android:id="@+id/cityName"

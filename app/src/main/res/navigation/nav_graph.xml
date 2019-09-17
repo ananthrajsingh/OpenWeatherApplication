@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/forecastFragment"
-        android:name="com.ananth.weatherdemo.ui.main.ForecastFragment"
+        android:name="com.ananth.weatherdemo.ui.forecast.ForecastFragment"
         android:label="ForecastFragment" >
         <action
             android:id="@+id/action_forecastFragment_to_locationFragment"
