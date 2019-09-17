@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ananth.weatherdemo.ui.main.ForecastViewModel" />
+    </data>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.ForecastFragment">
+
+    <TextView
+        android:id="@+id/cityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@{viewModel.currentCity}"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_arrow_forward"
+        android:onClick="@{() -> viewModel.onLocationEditRequest()}"
+        app:layout_constraintBottom_toBottomOf="@+id/cityName"
+        app:layout_constraintStart_toEndOf="@+id/cityName"
+        app:layout_constraintTop_toTopOf="@+id/cityName" />
+
+    <ImageView
+        android:id="@+id/todaysImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        app:iconCode="@{viewModel.currentDayWeather.weather.get(0).icon}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cityName" />
+
+    <TextView
+        android:id="@+id/todaysTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="@{@string/addDegree((int)viewModel.currentDayWeather.main.temperature)}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/todaysImage"
+        tools:text="32°" />
+
+    <TextView
+        android:id="@+id/todaysMinTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/todaysTemperature"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/todaysTemperature"
+        android:text="@{@string/addDegree((int)viewModel.currentDayWeather.main.minTemperature)}"
+        tools:text="20°" />
+
+    <TextView
+        android:id="@+id/todaysMaxTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toEndOf="@+id/todaysTemperature"
+        app:layout_constraintTop_toBottomOf="@+id/todaysTemperature"
+        android:text="@{@string/addDegree((int)viewModel.currentDayWeather.main.maxTemperature)}"
+        tools:text="40°" />
+
+    <TextView
+        android:id="@+id/todaysDescription"
+        tools:text="Light Showers"
+        android:textSize="20sp"
+        android:text="@{viewModel.currentDayWeather.weather.get(0).description}"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/todaysMinTemperature"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/todaysDescription">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dayOneDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{viewModel.upcomingDays.get(0)}"
+                tools:text="Monday" />
+
+            <ImageView
+                android:id="@+id/dayOneIcon"
+                android:layout_width="match_parent"
+                app:iconCode="@{viewModel.fiveDayForecast.get(0).weather.get(0).icon}"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/dayOneTemperature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=
+                    "@{@string/max_min((int)viewModel.fiveDayForecast.get(0).main.maxTemperature, (int)viewModel.fiveDayForecast.get(0).main.minTemperature)}"
+                android:textAlignment="center"
+                tools:text="22/4" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dayTwoDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{viewModel.upcomingDays.get(1)}"
+                tools:text="Monday" />
+
+            <ImageView
+                android:id="@+id/dayTwoIcon"
+                android:layout_width="match_parent"
+                app:iconCode="@{viewModel.fiveDayForecast.get(1).weather.get(0).icon}"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/dayTwoTemperature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=
+                    "@{@string/max_min((int)viewModel.fiveDayForecast.get(1).main.maxTemperature, (int)viewModel.fiveDayForecast.get(1).main.minTemperature)}"
+                android:textAlignment="center"
+                tools:text="22/4" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dayThreeDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{viewModel.upcomingDays.get(2)}"
+                tools:text="Monday" />
+
+            <ImageView
+                android:id="@+id/dayThreeIcon"
+                android:layout_width="match_parent"
+                app:iconCode="@{viewModel.fiveDayForecast.get(2).weather.get(0).icon}"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/dayThreeTemperature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=
+                    "@{@string/max_min((int)viewModel.fiveDayForecast.get(2).main.maxTemperature, (int)viewModel.fiveDayForecast.get(2).main.minTemperature)}"
+                android:textAlignment="center"
+                tools:text="22/4" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dayFourDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{viewModel.upcomingDays.get(3)}"
+                tools:text="Monday" />
+
+            <ImageView
+                android:id="@+id/dayFourIcon"
+                android:layout_width="match_parent"
+                app:iconCode="@{viewModel.fiveDayForecast.get(3).weather.get(0).icon}"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/dayFourTemperature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=
+                    "@{@string/max_min((int)viewModel.fiveDayForecast.get(3).main.maxTemperature, (int)viewModel.fiveDayForecast.get(3).main.minTemperature)}"
+                android:textAlignment="center"
+                tools:text="22/4" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dayFiveDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{viewModel.upcomingDays.get(4)}"
+                tools:text="Monday" />
+
+            <ImageView
+                android:id="@+id/dayFiveIcon"
+                android:layout_width="match_parent"
+                app:iconCode="@{viewModel.fiveDayForecast.get(4).weather.get(0).icon}"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/dayFiveTemperature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=
+                    "@{@string/max_min((int)viewModel.fiveDayForecast.get(4).main.maxTemperature, (int)viewModel.fiveDayForecast.get(4).main.minTemperature)}"
+                android:textAlignment="center"
+                tools:text="22/4" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>
